@@ -4,7 +4,6 @@ const fetch = require('node-fetch');
 
 dotenv.config();
 let token = null;
-// let token = "eyJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJcL2FwaVwvdjFcL2F1dGhlbnRpY2F0aW9uIiwiZXNjLmFwcCI6NzY1NywiYXBpX2tleSI6Im1rVE0yMzFRVnk4M1pvYjdReE8zMTdBbjVIN2w1Q3NoNm5UQU1oQ2MiLCJlc2MudXNlciI6bnVsbCwiZXNjLm9yZyI6MTIwODgsImVzYy5vcmdOYW1lIjoiYXBwbHlpbmciLCJpc3MiOiJzcGMtZnJvbnRlbmQwMDFAc3BjLWZyb250ZW5kIiwiZXhwIjoxNjI0NjU3OTMyLCJpYXQiOjE2MjQ2NDM1MzJ9.qM2giNimE7TLMwzhXZYm8mf1c8ZvuP1gOT1Ytdk_bqSOJ_2J1rkAwaXDLnLULQdVcq8G7jisxRF_vzyhlulBsg"
 
 
 const baseUrl = 'https://cdn.emnify.net/api/v1/';
@@ -22,10 +21,10 @@ function isAuthTokenValid(){
     if(decodedToken.exp * 1000 < currentDate.getTime()){
         getNewAuthToken()
     }
-    else getDeviceStatus()
+    else {
+        // Make API call
+    }
 }
-
-
 
 function getNewAuthToken(){
     fetch(`${baseUrl}authenticate`, {
@@ -39,22 +38,9 @@ function getNewAuthToken(){
     .then(result => result.json())
     .then(result => {
     token = result.auth_token
-    getDeviceStatus()
+    console.log("Your token is : "+token);
+    // Make API call
     })
-}
-
-function getDeviceStatus(){
-    fetch(`${baseUrl}endpoint`, {
-        method: 'GET',
-        headers: {
-            "accept": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
-      })
-      .then(result => result.json())
-      .then(result => {
-        console.log(result)
-      })
 }
 
 if(isAuthToken()){
