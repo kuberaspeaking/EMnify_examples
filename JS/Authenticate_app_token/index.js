@@ -33,7 +33,7 @@ function getNewAuthToken(){
             "accept": "application/json",
             "Content-Type": "application/json"
         },
-      body: `{\"application_token\":\"${process.env.APP_TOKEN}\"}`
+      body: `{\"application_token\":\"${process.env.APP_TOKEN}\"}` // Enter your application token in place of ${process.env.APP_TOKEN}
     })
     .then(result => result.json())
     .then(result => {
