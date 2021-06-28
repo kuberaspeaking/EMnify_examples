@@ -9,25 +9,17 @@ let token = null;
 const baseUrl = 'https://cdn.emnify.net/api/v1/';
 
 
-function isAuthToken(){
-    let bool  = (token == null) ? 0:1;
-    return bool
-}
-
-function isAuthTokenValid(){
-    let decodedToken = jwt_decode(token);
+async function getValidAuthToken(){
+    let decodedToken = token == null ? null : jwt_decode(token); // If token exist, check whether it is valid
     let currentDate = new Date();
-
-    if(decodedToken.exp * 1000 < currentDate.getTime()){
-        getNewAuthToken()
+    if (decodedToken == null || decodedToken.exp * 1000 < currentDate.getTime()){
+        token = await getNewAuthToken(); // if no token exist or token is not valid, get new token
     }
-    else {
-        // Make API call
-    }
+    return token;
 }
 
-function getNewAuthToken(){
-    fetch(`${baseUrl}authenticate`, {
+async function getNewAuthToken(){
+    return fetch(`${baseUrl}authenticate`, {
         method: 'POST',
         headers: {
             "accept": "application/json",
@@ -37,15 +29,18 @@ function getNewAuthToken(){
     })
     .then(result => result.json())
     .then(result => {
-    token = result.auth_token
-    console.log("Your token is : "+token);
-    // Make API call
+        console.log("Your token is : "+result.auth_token);
+        return result.auth_token;
     })
 }
 
-if(isAuthToken()){
-    isAuthTokenValid()
-}
-else getNewAuthToken()
 
+async function app(){
+
+    token = await getValidAuthToken();
+    // Make API Call
+}
+
+
+app();
 
