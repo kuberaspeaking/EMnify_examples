@@ -1,7 +1,7 @@
 {
   "name": "code_samples",
   "version": "1.0.0",
-  "description": "``` git clone  ```",
+  "description": "Authentication with an Application Token",
   "main": "index.js",
   "dependencies": {
     "dotenv": "^10.0.0",
@@ -14,6 +14,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "EMnify",
+  "license": "MIT"
 }

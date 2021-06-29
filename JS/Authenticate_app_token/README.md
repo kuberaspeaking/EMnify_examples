@@ -24,7 +24,7 @@ cd JS/Authenticate_app_token
 ```
 npm install
 ```
-Replace ${process.env.APP_TOKEN} in index.js with your Application Token
+Replace ${process.env.APP_TOKEN} in  index.js with your Application Token
 
 ```
 node index.js
