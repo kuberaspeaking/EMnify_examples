@@ -29,7 +29,7 @@ async function getNewAuthToken(){
     })
     .then(result => result.json())
     .then(result => {
-        console.log("Your token is : "+result.auth_token);
+        // console.log("Your token is : "+result.auth_token);
         return result.auth_token;
     })
 }
@@ -39,6 +39,7 @@ async function app(){
 
     token = await getValidAuthToken();
     // Make API Call
+    console.log("Your token is : "+token);
 }
 
 
